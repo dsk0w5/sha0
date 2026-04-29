@@ -1,11 +1,11 @@
-#ifndef SHA1_H
-#define SHA1_H
+#ifndef SHA0_H
+#define SHA0_H
 
 #include <stdlib.h>
 #include <memory.h>
 #include <stddef.h>
 
-#define SHA1_BLOCK_SIZE 20            
+#define SHA0_BLOCK_SIZE 20            
 
 typedef struct {
 	unsigned char data[64];
@@ -13,20 +13,22 @@ typedef struct {
 	unsigned long long bitlen;
 	unsigned int state[5];
 	unsigned int k[4];
-} SHA1_CTX;
+} SHA0_CTX;
 
 #define ROTLEFT(a, b) ((a << b) | (a >> (32 - b)))
 
 
-void sha1_transform(SHA1_CTX *ctx, const unsigned char data[])
+void sha0_transform(SHA0_CTX *ctx, const unsigned char data[])
 {
 	unsigned int a, b, c, d, e, i, j, t, m[80];
 
 	for (i = 0, j = 0; i < 16; ++i, j += 4)
 		m[i] = (data[j] << 24) + (data[j + 1] << 16) + (data[j + 2] << 8) + (data[j + 3]);
 	for ( ; i < 80; ++i) {
+		/* * SHA-0 Message Expansion:
+		 * The 1-bit left rotation present in SHA-1 is removed here.
+		 */
 		m[i] = (m[i - 3] ^ m[i - 8] ^ m[i - 14] ^ m[i - 16]);
-		m[i] = (m[i] << 1) | (m[i] >> 31);
 	}
 
 	a = ctx->state[0];
@@ -75,7 +77,7 @@ void sha1_transform(SHA1_CTX *ctx, const unsigned char data[])
 	ctx->state[4] += e;
 }
 
-void SHA1_Init(SHA1_CTX *ctx)
+void SHA0_Init(SHA0_CTX *ctx)
 {
 	ctx->datalen = 0;
 	ctx->bitlen = 0;
@@ -90,7 +92,7 @@ void SHA1_Init(SHA1_CTX *ctx)
 	ctx->k[3] = 0xca62c1d6;
 }
 
-void SHA1_Update(SHA1_CTX *ctx, const unsigned char data[], size_t len)
+void SHA0_Update(SHA0_CTX *ctx, const unsigned char data[], size_t len)
 {
 	size_t i;
 
@@ -98,14 +100,14 @@ void SHA1_Update(SHA1_CTX *ctx, const unsigned char data[], size_t len)
 		ctx->data[ctx->datalen] = data[i];
 		ctx->datalen++;
 		if (ctx->datalen == 64) {
-			sha1_transform(ctx, ctx->data);
+			sha0_transform(ctx, ctx->data);
 			ctx->bitlen += 512;
 			ctx->datalen = 0;
 		}
 	}
 }
 
-void SHA1_Final(SHA1_CTX *ctx, unsigned char hash[])
+void SHA0_Final(SHA0_CTX *ctx, unsigned char hash[])
 {
 	unsigned int i;
 
@@ -121,7 +123,7 @@ void SHA1_Final(SHA1_CTX *ctx, unsigned char hash[])
 		ctx->data[i++] = 0x80;
 		while (i < 64)
 			ctx->data[i++] = 0x00;
-		sha1_transform(ctx, ctx->data);
+		sha0_transform(ctx, ctx->data);
 		memset(ctx->data, 0, 56);
 	}
 
@@ -135,7 +137,7 @@ void SHA1_Final(SHA1_CTX *ctx, unsigned char hash[])
 	ctx->data[58] = ctx->bitlen >> 40;
 	ctx->data[57] = ctx->bitlen >> 48;
 	ctx->data[56] = ctx->bitlen >> 56;
-	sha1_transform(ctx, ctx->data);
+	sha0_transform(ctx, ctx->data);
 
 	// Since this implementation uses little endian byte ordering and MD uses big endian,
 	// reverse all the bytes when copying the final state to the output hash.
@@ -148,11 +150,11 @@ void SHA1_Final(SHA1_CTX *ctx, unsigned char hash[])
 	}
 }
 
-void SHA1(const unsigned char *data, size_t size, unsigned char hash[]) {
-	SHA1_CTX ctx;
-	SHA1_Init(&ctx);
-	SHA1_Update(&ctx, data, size);
-	SHA1_Final(&ctx, hash);
+void SHA0(const unsigned char *data, size_t size, unsigned char hash[]) {
+	SHA0_CTX ctx;
+	SHA0_Init(&ctx);
+	SHA0_Update(&ctx, data, size);
+	SHA0_Final(&ctx, hash);
 }
 
 #endif
