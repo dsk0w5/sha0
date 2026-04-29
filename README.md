@@ -1,52 +1,52 @@
-# SHA-1 Implementation in C
+# SHA-0 Implementation in C
 
-This is a simple implementation of the SHA-1 hashing algorithm in pure C language.
+This is a simple implementation of the SHA-0 hashing algorithm in pure C language.
 
 ## Introduction
 
-The Secure Hash Algorithm 1 (SHA-1) is a cryptographic hash function that produces a 160-bit (20-byte) hash value known as a message digest, typically rendered as a hexadecimal number, 40 digits long. It was designed by the National Security Agency (NSA) and published by the National Institute of Standards and Technology (NIST) as a U.S. Federal Information Processing Standard.
+The Secure Hash Algorithm 1 (SHA-0) is a cryptographic hash function that produces a 160-bit (20-byte) hash value known as a message digest, typically rendered as a hexadecimal number, 40 digits long. It was designed by the National Security Agency (NSA) and published by the National Institute of Standards and Technology (NIST) as a U.S. Federal Information Processing Standard.
 
 ## Features
 
 - Implemented in pure C language.
 - Supports hashing of data from memory buffers.
-- Follows the SHA-1 specification as outlined in FIPS PUB 180-1.
-- Provides both a simple function interface (`SHA1()`) and a `SHA1_CTX` structure for processing multiple chunks of data.
+- Follows the SHA-0 specification as outlined in FIPS PUB 180-1.
+- Provides both a simple function interface (`SHA0()`) and a `SHA0_CTX` structure for processing multiple chunks of data.
 
 ## Usage
 
-### Using the `SHA1()` Function
+### Using the `SHA0()` Function
 
 ```c
-#include "sha1.h"
+#include "sha0.h"
 
 int main() {
     unsigned char data[] = "Hello, World!";
-    unsigned char hash[SHA1_BLOCK_SIZE];
+    unsigned char hash[SHA0_BLOCK_SIZE];
 
-    SHA1(data, sizeof(data) - 1, hash);
+    SHA0(data, sizeof(data) - 1, hash);
 
     // Print or use the hash as needed
     return 0;
 }
 ```
 
-### Using the `SHA1_CTX` Structure
+### Using the `SHA0_CTX` Structure
 
 ```c
-#include "sha1.h"
+#include "sha0.h"
 
 int main() {
     unsigned char data1[] = "Hello, ";
     unsigned char data2[] = "World!";
-    unsigned char hash[SHA1_BLOCK_SIZE];
+    unsigned char hash[SHA0_BLOCK_SIZE];
     
-    SHA1_CTX ctx;
+    SHA0_CTX ctx;
 
-    SHA1_Init(&ctx);
-    SHA1_Update(&ctx, data1, sizeof(data1) - 1);
-    SHA1_Update(&ctx, data2, sizeof(data2) - 1);
-    SHA1_Final(&ctx, hash);
+    SHA0_Init(&ctx);
+    SHA0_Update(&ctx, data1, sizeof(data1) - 1);
+    SHA0_Update(&ctx, data2, sizeof(data2) - 1);
+    SHA0_Final(&ctx, hash);
 
     // Print or use the hash as needed
     return 0;
