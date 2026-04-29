@@ -6,7 +6,7 @@ Forked from [halloweeks/sha1](https://github.com/halloweeks/sha1).
 
 ## Introduction
 
-The Secure Hash Algorithm 0 (SHA-0) is a cryptographic hash function that produces a 160-bit (20-byte) hash value known as a message digest, typically rendered as a hexadecimal number, 40 digits long. It was designed by the National Security Agency (NSA) and published by the National Institute of Standards and Technology (NIST) as a U.S. Federal Information Processing Standard.
+The Secure Hash Algorithm 0 (SHA-0) is a cryptographic hash function that produces a 160-bit (20-byte) hash value known as a message digest, typically rendered as a hexadecimal number, 40 digits long. It was designed by the National Security Agency (NSA) and published by the National Institute of Standards and Technology (NIST) as a U.S. Federal Information Processing Standard. It was withdrawn by the NSA shortly after publication and was superseded by the revised version, published in 1995 in FIPS PUB 180-1 and commonly designated SHA-1. SHA-1 differs from SHA-0 only by a single bitwise rotation in the message schedule of its compression function. According to the NSA, this was done to correct a flaw in the original algorithm which reduced its cryptographic security.
 
 ## Features
 
