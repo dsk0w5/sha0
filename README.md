@@ -2,15 +2,17 @@
 
 This is a simple implementation of the SHA-0 hashing algorithm in pure C language.
 
+Forked from [halloweeks/sha1](https://github.com/halloweeks/sha1).
+
 ## Introduction
 
-The Secure Hash Algorithm 1 (SHA-0) is a cryptographic hash function that produces a 160-bit (20-byte) hash value known as a message digest, typically rendered as a hexadecimal number, 40 digits long. It was designed by the National Security Agency (NSA) and published by the National Institute of Standards and Technology (NIST) as a U.S. Federal Information Processing Standard.
+The Secure Hash Algorithm 0 (SHA-0) is a cryptographic hash function that produces a 160-bit (20-byte) hash value known as a message digest, typically rendered as a hexadecimal number, 40 digits long. It was designed by the National Security Agency (NSA) and published by the National Institute of Standards and Technology (NIST) as a U.S. Federal Information Processing Standard.
 
 ## Features
 
 - Implemented in pure C language.
 - Supports hashing of data from memory buffers.
-- Follows the SHA-0 specification as outlined in FIPS PUB 180-1.
+- Follows the SHA-0 specification as outlined in FIPS PUB 180.
 - Provides both a simple function interface (`SHA0()`) and a `SHA0_CTX` structure for processing multiple chunks of data.
 
 ## Usage
